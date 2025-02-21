@@ -1,10 +1,9 @@
 import {Box, Typography} from "@mui/material";
-import {AcauntTitle} from "../../../entites/acauntTitle/module/AcauntTitle";
-
+import {AccountTitle} from "../../../entites/acauntTitle/module/AccountTitle";
+import "../styles/astroclient.scss"
 function AstroClient () {
-  return <Box className="title">
-      <AcauntTitle />
-      <Typography>Astro Lady</Typography>
+  return <Box className="astro-client">
+      <AccountTitle />
     </Box>
 }
 export {AstroClient};

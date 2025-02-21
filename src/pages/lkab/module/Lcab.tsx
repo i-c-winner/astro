@@ -1,5 +1,5 @@
 import {useEffect} from "react";
-import {Acaunts} from "../../../widgets/acaunts/module/module/Acaunts";
+import {Accounts} from "../../../widgets/acaunts/module/Accounts";
 import {Box} from "@mui/material";
 import "../styles/Lcab.scss"
 import {Conference} from "../../../widgets/conference/module/Conference";
@@ -11,7 +11,7 @@ function Lcab() {
   >
     <Conference />
     <Zodiac />
-    <Acaunts />
+    <Accounts />
 
   </Box>
 }

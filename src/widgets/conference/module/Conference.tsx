@@ -1,7 +1,11 @@
-import {Acaunts} from "../../acaunts/module/module/Acaunts";
+import {Accounts} from "../../acaunts/module/Accounts";
+import "../styles/conference.scss"
+import {Box} from "@mui/material";
 
 function Conference() {
-  return <p>Conference</p>
+  return <Box className="conference">
+    Conference
+  </Box>
 
 }
 export  {Conference};

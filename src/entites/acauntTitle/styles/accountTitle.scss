@@ -1,0 +1,9 @@
+.accountTitle {
+  display: flex;
+
+  .title {
+    &__avatar {
+      margin-right: 15px;
+    }
+  }
+}

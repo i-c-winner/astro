@@ -1,6 +1,6 @@
-import Chart from "@astrodraw/astrochart";
+import {Chart} from "zodiac-winner";
 
-function getNatalCard() {
+function getNatalCard(element: HTMLDivElement) {
   const data = {
     "planets":{
       "Pluto":[63],
@@ -15,7 +15,8 @@ function getNatalCard() {
       "Venus":[330]},
     "cusps":[296, 350, 30, 56, 75, 94, 116, 170, 210, 236, 255, 274]
   }
-  const chart= new Chart('paper', 800, 800)
+  // @ts-ignore
+  const chart= new Chart('zodiac', 800, 800, element)
   const radix = chart.radix(data)
 
   const customAspects=[
