@@ -3,6 +3,7 @@ import { Box, Button } from "@mui/material";
 import {getRandomString} from "../../../features/plugins/getRandomString";
 import "../styles/conference.scss";
 import {Card} from "../../card/module/Card";
+import {Screen} from "../../screen/module/screen";
 
 function Conference() {
   const [isOpen, setIsOpen] = useState(false);
@@ -72,7 +73,7 @@ function Conference() {
 
   return (
     <Box className="conference">
-      <>dd</>
+      <Screen />
       <Card className="card__client" type="accountCard" />
     </Box>
   );
