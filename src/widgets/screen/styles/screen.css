@@ -2,4 +2,5 @@
     width: 500px;
     flex-grow: 0.9;
     box-shadow: 0 0 10px white;
+    max-height: 371px;
 }

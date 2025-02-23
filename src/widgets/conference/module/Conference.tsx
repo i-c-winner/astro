@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react";
-import { Box, Button } from "@mui/material";
+import {useEffect, useRef, useState} from "react";
+import {Box, Button} from "@mui/material";
 import {getRandomString} from "../../../features/plugins/getRandomString";
 import "../styles/conference.scss";
 import {Card} from "../../card/module/Card";
-import {Screen} from "../../screen/module/screen";
+import {Screen} from "../../screen/module/Screen";
 
 function Conference() {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,9 +11,32 @@ function Conference() {
   const scriptRef = useRef<HTMLScriptElement | null>(null);
   const jitsiAPI = useRef<any>(null);
   const refConference = useRef<HTMLDivElement>(null);
+  const [stream, setStream] = useState<MediaStream | null>(null);
 
   function togglingOpen() {
     setIsOpen((prev) => !prev);
+  }
+
+
+  function cleanupJitsi() {
+    if (jitsiAPI.current) {
+      jitsiAPI.current.removeEventListener("videoConferenceLeft", handleJitsiLeft);
+      jitsiAPI.current.dispose();
+      jitsiAPI.current = null;
+    }
+    if (refConference.current) {
+      refConference.current.innerHTML = "";
+    }
+    if (scriptRef.current) {
+      document.body.removeChild(scriptRef.current);
+      scriptRef.current = null;
+    }
+  }
+
+  function handleJitsiLeft() {
+    console.log("Jitsi был закрыт пользователем");
+    setIsOpen(false); // Закрываем конференцию
+    setRoomName(getRandomString(15));
   }
 
   useEffect(() => {
@@ -36,7 +59,7 @@ function Conference() {
           } else {
             console.error("JitsiMeetExternalAPI не загружен");
           }
-          console.log('%c JITSI','color: red; font-size: 25px',jitsiAPI.current)
+          console.log("%c JITSI", "color: red; font-size: 25px", jitsiAPI.current);
         };
         document.body.appendChild(script);
         scriptRef.current = script;
@@ -49,34 +72,20 @@ function Conference() {
       cleanupJitsi();
     };
   }, [isOpen]);
-
-  function cleanupJitsi() {
-    if (jitsiAPI.current) {
-      jitsiAPI.current.removeEventListener("videoConferenceLeft", handleJitsiLeft);
-      jitsiAPI.current.dispose();
-      jitsiAPI.current = null;
-    }
-    if (refConference.current) {
-      refConference.current.innerHTML = "";
-    }
-    if (scriptRef.current) {
-      document.body.removeChild(scriptRef.current);
-      scriptRef.current = null;
-    }
-  }
-
-  function handleJitsiLeft() {
-    console.log("Jitsi был закрыт пользователем");
-    setIsOpen(false); // Закрываем конференцию
-    setRoomName(getRandomString(15))
-  }
+  useEffect(() => {
+    navigator.mediaDevices.getUserMedia({
+      audio: true, video: true
+    }).then((stream) => {
+      setStream(stream);
+    });
+  }, []);
 
   return (
     <Box className="conference">
-      <Screen />
-      <Card className="card__client" type="accountCard" />
+      <Screen stream={stream}/>
+      <Card className="card__client" type="accountCard"/>
     </Box>
   );
 }
 
-export { Conference };
+export {Conference};
