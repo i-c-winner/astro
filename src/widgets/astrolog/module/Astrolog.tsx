@@ -1,11 +1,11 @@
 import {useEffect, useRef, useState} from "react";
 import {Box, Button} from "@mui/material";
 import {getRandomString} from "../../../features/plugins/getRandomString";
-import "../styles/conference.scss";
+import "../styles/astrolog.scss";
 import {Card} from "../../card/module/Card";
 import {Screen} from "../../screen/module/Screen";
 
-function Conference() {
+function Astrolog() {
   const [isOpen, setIsOpen] = useState(false);
   const [roomName, setRoomName] = useState<string>(getRandomString(15));
   const scriptRef = useRef<HTMLScriptElement | null>(null);
@@ -88,4 +88,4 @@ function Conference() {
   );
 }
 
-export {Conference};
+export {Astrolog};
