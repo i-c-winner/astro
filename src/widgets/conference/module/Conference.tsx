@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Box, Button } from "@mui/material";
 import {getRandomString} from "../../../features/plugins/getRandomString";
 import "../styles/conference.scss";
+import {Card} from "../../card/module/Card";
 
 function Conference() {
   const [isOpen, setIsOpen] = useState(false);
@@ -71,11 +72,8 @@ function Conference() {
 
   return (
     <Box className="conference">
-      <Button onClick={togglingOpen}>
-        {isOpen ? "Закрыть Видео" : "Открыть Видео"}
-      </Button>
-      <p>Название комнаты: {roomName}</p>
-      <Box id="jaas-container" ref={refConference}></Box>
+      <>dd</>
+      <Card className="card__client" type="accountCard" />
     </Box>
   );
 }

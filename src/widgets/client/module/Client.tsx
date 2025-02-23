@@ -4,7 +4,6 @@ import "../styles/client.scss"
 
 function Client() {
   return <Box className="client">
-    <AccountTitle />
   </Box>
 }
 export {Client};

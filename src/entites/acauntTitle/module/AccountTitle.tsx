@@ -1,10 +1,19 @@
-import {Avatar, Box, Typography} from "@mui/material";
+import {Avatar, Box, CardHeader, Typography} from "@mui/material";
 import "../styles/accountTitle.scss"
+import React from "react";
 
-function AccountTitle () {
-  return <Box className="accountTitle">
-    <Avatar className="title__avatar" src="/avatar.jpg" ></Avatar>
-    <Typography>Astro Lady</Typography>
-  </Box>
+function AccountTitle (props: {
+  icon?: React.JSX.Element;
+  title: string
+}) {
+  return <React.Fragment>
+    <CardHeader
+      avatar={<Avatar className="title__avatar"  ></Avatar>}
+      className="accountTitle"
+      title={  <Typography variant="astro">{props.title}</Typography>}
+    >
+
+    </CardHeader>
+  </React.Fragment>
 }
 export  {AccountTitle}

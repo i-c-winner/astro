@@ -6,15 +6,20 @@ import reportWebVitals from './reportWebVitals';
 import {RouterProvider} from "react-router";
 import {routes} from "./app/router/routers";
 import {BrowserRouter} from "react-router";
+import {ThemeProvider} from "@emotion/react";
+import {darkTheme} from "./app/theme/theme";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      {routes}
-    </BrowserRouter>
+    <ThemeProvider theme={darkTheme}>
+      <BrowserRouter>
+        {routes}
+      </BrowserRouter>
+    </ThemeProvider>
+
 
   </React.StrictMode>
 );
