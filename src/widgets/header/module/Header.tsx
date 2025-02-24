@@ -14,6 +14,7 @@ function Header() {
       <Typography variant="astro" component="div">Комната</Typography>
      <CircleButton icon={<Login />} className="circle-button__login"/>
      <CircleButton icon={<Logout />} className="circle-button__login"/>
+      <Typography variant="astro" component="div">Регистрация</Typography>
     </Box>
 
 
