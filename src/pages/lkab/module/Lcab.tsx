@@ -1,4 +1,3 @@
-import {useEffect} from "react";
 import {Accounts} from "../../../widgets/acaunts/module/Accounts";
 import {Box} from "@mui/material";
 import "../styles/lcab.scss";

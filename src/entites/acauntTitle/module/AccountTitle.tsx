@@ -1,4 +1,4 @@
-import {Avatar, Box, CardHeader, Typography} from "@mui/material";
+import {Avatar, CardHeader, Typography} from "@mui/material";
 import "../styles/accountTitle.scss"
 import React from "react";
 

@@ -1,7 +1,7 @@
 import {createTheme} from "@mui/material";
 import {palette} from "./palette";
 
-const {CARD_COLOR, CARD_BG, CARD_BOX_SHADOW} = palette;
+const {CARD_COLOR, CARD_BG} = palette;
 
 const darkTheme = createTheme({
   components: {

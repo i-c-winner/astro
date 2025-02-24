@@ -1,6 +1,5 @@
 import "../styles/circleButton.scss";
 import {Button} from "@mui/material";
-import {ReactComponent as Icon} from "../../../shared/assets/images/scorpio.svg";
 
 function CircleButton(props: {
   className?: string,

@@ -1,4 +1,4 @@
-import {Card as CardBox, CardContent, CardHeader} from "@mui/material";
+import {Card as CardBox, CardContent } from "@mui/material";
 import "../styles/card.scss";
 import React from "react";
 import {AccountCard} from "./AccountCard";
