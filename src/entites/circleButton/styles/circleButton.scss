@@ -19,4 +19,18 @@
       }
     }
   }
+  &__login {
+    width: 35px;
+    height: 35px;
+
+    button {
+      position: relative;
+      right: 21px;
+    }
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.2);
+
+    }
+  }
 }

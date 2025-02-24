@@ -4,7 +4,7 @@ import {ReactComponent as Icon} from "../../../shared/assets/images/scorpio.svg"
 
 function CircleButton(props: {
   className?: string,
-  icon?: any
+  icon: React.ReactNode,
 }) {
 
   const baseClassName = "circle-button ";
@@ -12,7 +12,7 @@ function CircleButton(props: {
   return <div className={className}>
     <Button
       disabled={true}
-      endIcon={<Icon/>}
+      endIcon={props.icon}
     >
 
     </Button>

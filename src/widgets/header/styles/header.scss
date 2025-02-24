@@ -1,0 +1,22 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% - 40px);
+    padding: 10px;
+    box-shadow: 0 0 10px white;
+    box-sizing: border-box;
+    justify-self: center;
+    align-self: center;
+    padding-left: 150px;
+
+   &__items{
+        display: flex;
+     padding: 10px;
+     box-sizing: border-box;
+     align-items: center;
+
+     div {
+       margin-right: 20px;
+     }
+    }
+}
