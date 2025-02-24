@@ -11,8 +11,8 @@ function Screen (props: {stream: MediaStream|null}) {
     }
   }, [props.stream]);
 
-  return <video autoPlay={true} ref={refElement} className="screen">
-
-  </video>
+  return <Box className="screen" >
+    <video autoPlay={true} ref={refElement} className="video" />
+  </Box>
 }
 export {Screen};

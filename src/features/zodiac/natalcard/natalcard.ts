@@ -16,7 +16,7 @@ function getNatalCard(element: HTMLDivElement) {
     "cusps":[296, 350, 30, 56, 75, 94, 116, 170, 210, 236, 255, 274]
   }
   // @ts-ignore
-  const chart= new Chart('zodiac', 800, 800, {},element)
+  const chart= new Chart('zodiac', 700, 800, {},element)
   const radix = chart.radix(data)
 
   const customAspects=[

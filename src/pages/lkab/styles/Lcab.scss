@@ -1,10 +1,18 @@
 .lcab {
+  display: flex;
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
+  background: linear-gradient(to top, #1e1e1e, black);
+  padding: 10px;
+}
+
+.wrapper {
+  flex-grow: 1;
   display: flex;
   justify-content: space-between;
-  background: linear-gradient(to top, #1e1e1e, black);
+
 }
+
