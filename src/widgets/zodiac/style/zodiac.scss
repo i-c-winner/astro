@@ -1,4 +1,16 @@
 .zodiac {
     flex-grow: 1;
    width: 1px;
+  position: relative;
+}
+#zodiac {
+  z-index: 10;
+}
+.white-board {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: initial !important;
 }
