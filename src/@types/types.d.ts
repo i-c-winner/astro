@@ -1,0 +1,1 @@
+type TListenersForMediator = "wssIsOpen" | "onmessage" | "wsOpen" | "messageWasSend";
