@@ -1,30 +1,56 @@
+import {PeerConnection as PeerCon} from "../peerConnection/peerConnection";
+import {Websocket as Webs} from "../websocket/websocket";
+
 class Mediator {
-  private pc: RTCPeerConnection;
+  private pc = new PeerCon();
   public listeners: {
-    [name: string ]: ((...args: any[]) => void)[]
+    [name: string]: ((...args: any[]) => void)[]
   };
-  private wss: WebSocket;
+  private wss = new Webs("wss://astroserver-o6m8.onrender.com");
+  private stream: MediaStream;
+  private container: HTMLDivElement;
+
 
   constructor() {
-    this.pc = new RTCPeerConnection();
-    this.wss = new WebSocket("wss://astroserver-o6m8.onrender.com");
-    this.wss.onopen = () => {
-      this.submit("wssIsOpen", true);
-    };
-    this.listeners={}
+    this.stream = new MediaStream();
+    this.container = document.createElement("div");
+    this.pc.addListener("sendMessage", this.sendMessage.bind(this));
+    this.wss.addListener('wssIsOpen', this.wssOpened.bind(this));
+    this.listeners = {};
   }
+
+  setData(stream: MediaStream, container: HTMLDivElement): void {
+    this.stream = stream;
+    this.container = container;
+    stream.getTracks().forEach((track) => {
+      this.pc.addTrack(track, stream);
+    });
+  }
+
   closeWebSocket() {
-    this.wss.close();
     this.submit("wssIsOpen", false);
   }
 
   createPeerConnection() {
-    this.pc = new RTCPeerConnection({
-      iceServers: [{urls: "stun:stun.l.google.com:19302"}]
-    });
+    this.pc.init();
   }
 
-  subscribe(name: TListenersForMediator, listener: (args: any[]) => void) {
+  addPeerListener(name: TListenersForMediator, func: (...args: any[]) => void) {
+    this.pc.addListener(name, func);
+  }
+
+  addWssListener(name: TListenersForMediator, func: (...args: any[]) => void) {
+    this.wss.addListener(name, func);
+  }
+
+  wssOpened() {
+    this.pc.init();
+  }
+  sendMessage(message: { type: string, payload: any }) {
+    this.wss.sendMessage(message);
+  }
+
+  emit(name: TListenersForMediator, listener: (args: any[]) => void) {
     if (!this.listeners[name]) {
       this.listeners[name] = [];
     }

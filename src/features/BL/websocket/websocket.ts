@@ -2,11 +2,10 @@ class Websocket {
   private ws: WebSocket;
   private readonly listeners: {
     [key: string]: ((args: any[])=>void)[]
-  };
+  }={}
   constructor(url: string) {
     this.ws= new WebSocket(url);
     this.createListeners()
-    this.listeners={}
   }
   createListeners() {
     this.ws.onmessage = (event: MessageEvent) => {
@@ -18,7 +17,7 @@ class Websocket {
       console.log("Websocket opened");
     }
   }
-  sendMessage(message: any) {
+  sendMessage(message: { type: string, payload: any }) {
     this.ws.send(JSON.stringify(message));
     this.emit("messageWasSend", message);
   }
