@@ -24,7 +24,6 @@ class PeerConnection {
         console.info(`Received ${event.candidate}`);
         this.handleIceCandidate(event.candidate);
       }
-
     };
   }
 
@@ -48,7 +47,10 @@ class PeerConnection {
   createAnswer(answer: RTCSessionDescriptionInit) {
     this.pc.createAnswer(answer).then(() => {
       this.pc.setLocalDescription(answer).then(() => {
-        this.emit("sendMessage", "answer", answer);
+        this.emit("sendMessage", {
+          type: "answer",
+          payload: answer,
+        });
       });
     });
   }

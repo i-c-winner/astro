@@ -6,7 +6,7 @@ class Mediator {
   public listeners: {
     [name: string]: ((...args: any[]) => void)[]
   };
-  private wss = new Webs("wss://astroserver-o6m8.onrender.com");
+  private wss = new Webs();
   private stream: MediaStream;
   private container: HTMLDivElement;
 
@@ -20,6 +20,7 @@ class Mediator {
   }
 
   setData(stream: MediaStream, container: HTMLDivElement): void {
+    this.wss.init("wss://astroserver-o6m8.onrender.com")
     this.stream = stream;
     this.container = container;
     stream.getTracks().forEach((track) => {
@@ -29,10 +30,6 @@ class Mediator {
 
   closeWebSocket() {
     this.submit("wssIsOpen", false);
-  }
-
-  createPeerConnection() {
-    this.pc.init();
   }
 
   addPeerListener(name: TListenersForMediator, func: (...args: any[]) => void) {

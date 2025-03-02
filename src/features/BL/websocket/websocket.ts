@@ -1,25 +1,27 @@
 class Websocket {
-  private ws: WebSocket;
+  private ws: WebSocket|null=null;
   private readonly listeners: {
     [key: string]: ((args: any[])=>void)[]
   }={}
-  constructor(url: string) {
-    this.ws= new WebSocket(url);
-    this.createListeners()
+  constructor() {
+        this.createListeners()
+    this.ws = null
   }
+  init(url: string) {
+    this.ws=new WebSocket(url)
+}
   createListeners() {
-    this.ws.onmessage = (event: MessageEvent) => {
+    if (this.ws) this.ws.onmessage = (event: MessageEvent) => {
       console.log(JSON.parse(event.data));
       this.emit('onmessage', JSON.parse(event.data));
     }
-    this.ws.onopen = () => {
+   if (this.ws) this.ws.onopen = () => {
       this.emit("wsOpen");
       console.log("Websocket opened");
     }
   }
   sendMessage(message: { type: string, payload: any }) {
-    this.ws.send(JSON.stringify(message));
-    this.emit("messageWasSend", message);
+   if(this.ws) this.ws.send(JSON.stringify(message));
   }
   addListener(name: TListenersForMediator, listener: (args: any) => void) {
     if (!this.listeners[name]) {
