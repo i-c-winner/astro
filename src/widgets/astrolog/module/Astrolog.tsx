@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import { useRef, useState} from "react";
 import {Box, Button} from "@mui/material";
 import "../styles/astrolog.scss";
 import {Mediator} from "../../../features/BL/mediator/mediator";
@@ -10,7 +10,7 @@ const mediator = new Mediator();
 
 function Astrolog() {
   const [connected, setConnected] = useState<boolean>(false);
-  const [stream, setStream] = useState<MediaStream | null>(null);
+  const [stream] = useState<MediaStream | null>(null);
   const refContainer = useRef<HTMLVideoElement | null>(null);
 
   function start() {
