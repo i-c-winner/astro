@@ -8,24 +8,24 @@ class Mediator {
   };
   private wss = new Webs();
   private stream: MediaStream;
-  private container: HTMLDivElement;
-
+  private container: HTMLVideoElement;
+  private type: "offer" | "answer"="offer";
 
   constructor() {
     this.stream = new MediaStream();
-    this.container = document.createElement("div");
+    this.container = document.createElement("video");
     this.pc.addListener("sendMessage", this.sendMessage.bind(this));
-    this.wss.addListener('wssIsOpen', this.wssOpened.bind(this));
+    this.wss.addListener("wssIsOpen", this.wssOpened.bind(this));
+    this.wss.addListener("onmessage", this.onMessage.bind(this));
     this.listeners = {};
   }
 
-  setData(stream: MediaStream, container: HTMLDivElement): void {
-    this.wss.init("wss://astroserver-o6m8.onrender.com")
+  setData(stream: MediaStream, container: HTMLVideoElement, type: "offer" | "answer"): void {
+    this.wss.init("wss://astroserver-o6m8.onrender.com");
     this.stream = stream;
     this.container = container;
-    stream.getTracks().forEach((track) => {
-      this.pc.addTrack(track, stream);
-    });
+    this.type = type;
+    this.wss.addListener("wsOpen", this.wssOpened.bind(this));
   }
 
   closeWebSocket() {
@@ -41,10 +41,28 @@ class Mediator {
   }
 
   wssOpened() {
-    this.pc.init();
+    this.pc.init(this.stream, this.type, this.container);
   }
+
   sendMessage(message: { type: string, payload: any }) {
     this.wss.sendMessage(message);
+  }
+
+  onMessage(data: { type: string, payload: any }[]) {
+    const message=data[0]
+    if (message.type === "offer"&&this.type === "answer") {
+      const offer = message.payload as RTCSessionDescription;
+      this.pc.handleOffer(offer);
+    }
+    if (message.type === "answer"&&this.type === "offer") {
+      const answer = message.payload as RTCSessionDescription;
+      this.pc.handleAnswer(answer);
+    }
+    if (message.type === "iceCandidate") {
+      const iceCandidate = message.payload as RTCIceCandidate;
+      this.pc.handleIceCandidate(iceCandidate)
+    }
+    console.log("onMessage received", message);
   }
 
   emit(name: TListenersForMediator, listener: (args: any[]) => void) {

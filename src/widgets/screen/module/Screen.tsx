@@ -1,8 +1,8 @@
 import {Box} from "@mui/material";
 import "../styles/screen.css"
-import {useEffect, useRef} from "react";
+import {Ref, useEffect, useRef} from "react";
 
-function Screen (props: {stream: MediaStream|null}) {
+function Screen (props: {stream: MediaStream|null, ref: Ref<HTMLVideoElement>}) {
   const refElement=useRef<HTMLVideoElement|null>(null);
 
   useEffect(() => {
@@ -12,7 +12,7 @@ function Screen (props: {stream: MediaStream|null}) {
   }, [props.stream]);
 
   return <Box className="screen" >
-    <video autoPlay={true} ref={refElement} className="video" />
+    <video ref={props.ref} autoPlay={true}  className="video" />
   </Box>
 }
 export {Screen};
